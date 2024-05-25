@@ -19,6 +19,7 @@ $gitTagName = "v$TagName"
 if ($Tag) {
     quickgo -v exec version v=$TagName
     quickgo -v exec git tag=$gitTagName m=$CommitMessage
+    $PyPi = $true
 } else {
     quickgo -v exec git m=$CommitMessage
 }
