@@ -16,13 +16,12 @@ Het is niet de bedoeling de data of deze services door te verkopen of in commerc
 Dit houdt o.a. in dat het niet is toestaan een eigen service aan te bieden die deze data als bron gebruikt.
 """
 import requests
-from dataclasses import dataclass
 from django.utils.translation import gettext_lazy as _
 from django.core.cache import cache
 
 import logging
 
-from .settings import (
+from postcodes.settings import (
     ADDRESS_CHECK_API_KEY,
     ADDRESS_CHECK_API_URL,
     URL_PARAMETER_FORMAT,

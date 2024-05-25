@@ -2,10 +2,10 @@ from django.http import JsonResponse
 from django.utils.translation import (
     gettext_lazy as _,
 )
-from .settings import (
+from postcodes.settings import (
     REQUIRES_AUTH,
 )
-from .postcode import (
+from postcodes.postcode import (
     address_check,
     AddressValidationError,
     logger,
@@ -50,15 +50,6 @@ def address_check_api(request):
             "success": False,
             "error": str(e)
         }, status=200)
-
-    # An unexpected error occurred
-    except Exception as e:
-        logger.error(f"An error occurred while checking the address: {e}")
-        return JsonResponse({
-            "success": False,
-            "error": _("An error occurred while checking the address.")
-        }, status=200)
-    
 
     # Return the address information
     return JsonResponse({
