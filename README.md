@@ -9,6 +9,15 @@ You must create an account and get an API key to use this package (in the defaul
 
 This API key must be set in the [settings](#settings).
 
+**Features**
+
+* Lookup addresses by postcode and home number
+* Customizable form fields
+* Customizable API endpoint
+* Autofill form fields with the address data
+* Validation of form fields when the address is not found
+* Validation of form fields when user input was given (regex, min, max.)
+
 Quick start
 -----------
 
