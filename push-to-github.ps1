@@ -5,6 +5,15 @@ param (
     [bool]$PyPi = $false
 )
 
+if ($TagName[0] -eq "v") {
+    Write-Host "Tag name should not start with 'v'"
+    exit
+}
+
+if ($TagName -ne "0.0.0") {
+    $Tag = $true
+}
+
 $gitTagName = "v$TagName"
 
 if ($Tag) {
