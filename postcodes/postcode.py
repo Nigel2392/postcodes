@@ -40,7 +40,7 @@ _default_headers = {
 logger = logging.getLogger(__name__)
 
 
-class Address:
+class Address(object):
     """
         A simple address object to store address information.
     """
@@ -52,18 +52,19 @@ class Address:
         self.home_number = home_number
         self.data = data or {}
 
-    def __getattr__(self, name):
+    def __getattribute__(self, name):
         if name == "postcode":
-            return self.postcode
+            return object.__getattribute__(self, "postcode")
         
         if name == "home_number":
-            return self.home_number
+            return object.__getattribute__(self, "home_number")
         
         if name == "data":
-            return self.data
+            return object.__getattribute__(self, "data")
         
-        if name in self.data:
-            return self.data[name]
+        data = object.__getattribute__(self, "data")
+        if name in data:
+            return data[name]
         
         raise AttributeError(f"Attribute {name} not found in address data.")
     
@@ -75,7 +76,11 @@ class Address:
 
 
 class AddressValidationError(Exception):
-    pass
+    def __init__(self, message, *args, **kwargs):
+        self.message = message
+        if not args:
+            args = (message, )
+        super().__init__(*args, **kwargs)
 
 
 def make_cache_key(postcode, number):
@@ -122,7 +127,7 @@ def address_check(postcode: str, number: int, api_key = None) -> Address:
         raise AddressValidationError(_(f"Endpoint returned an invalid response: {response.text}"))
     
     if response.status_code != 200:
-        raise AddressValidationError(getattr(data, ERROR_ATTRIBUTE, _("Endpoint returned an error response.")))
+        raise AddressValidationError(_("Invalid Response status %(status)s") % {"status": response.status_code}, getattr(data, ERROR_ATTRIBUTE, _("Endpoint returned an error response.")))
 
     # Create a new address instance
     address = Address(

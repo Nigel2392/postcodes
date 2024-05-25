@@ -45,7 +45,7 @@ def address_check_api(request):
 
     # The address is invalid or the endpoint returned an error
     except AddressValidationError as e:
-        logger.error(f"An error occurred while checking the address: {e}")
+        logger.error(f"An error occurred while checking the address: {e.message}")
         return JsonResponse({
             "success": False,
             "error": str(e)
