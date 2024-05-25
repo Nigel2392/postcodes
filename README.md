@@ -11,7 +11,7 @@ Quick start
 1. Install the package via pip:
 
    ```bash
-   pip install postcodes
+   pip install django-postcodes
    ```
 
 2. Add 'postcodes' to your INSTALLED_APPS setting like this:
@@ -21,6 +21,11 @@ Quick start
    ...,
       'postcodes',
    ]
+   ```
+3. Add the postcodes URL to your project's `urls.py`:
+
+   ```python
+   path('postcodes/', include('postcodes.urls', namespace='postcodes')),
    ```
 
 
