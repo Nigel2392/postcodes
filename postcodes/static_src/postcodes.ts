@@ -1,18 +1,23 @@
-import { fetchAPI, isZero, newURL, validateInput } from './utils';
+import { Selector, fetchAPI, isZero, newURL, validateInput } from './utils';
 
 interface Address {
     postcode: string;
     home_number: string;
-    // Optional fields
+    [key: string]: string;
 };
 
 
 type BindOptions = {
-    postcode: HTMLInputElement;
-    home_number: HTMLInputElement;
-    // Optional fields
+    postcode: string | HTMLInputElement;
+    home_number: string | HTMLInputElement;
+    [key: string]: string | HTMLInputElement;
 };
 
+type _BindOptions = {
+    postcode: HTMLInputElement;
+    home_number: HTMLInputElement;
+    [key: string]: HTMLInputElement;
+};
 
 interface LookupOptions {
     postcode?: string;
@@ -48,18 +53,11 @@ async function lookupPostcode(options: LookupOptions): Promise<Address> | undefi
     let home_number = options.home_number;
 
     if (options && options.bind && options.bind.postcode && options.bind.home_number) {
-        const postcodeInput = options.bind.postcode;
-        const home_numberInput = options.bind.home_number;
+        let postcodeInput: HTMLInputElement;
+        let home_numberInput: HTMLInputElement;
+        let keys: string[];
 
-        delete options.bind.postcode;
-        delete options.bind.home_number;
-
-        const keys = Object.keys(options.bind) as (keyof BindOptions)[];
-        if (keys.length == 0) {
-            throw new Error('At least postcode, home_number and one other field must be bound');
-        }
-
-        const bound: any = options.bind;
+        const bound = options.bind as _BindOptions;
 
         const clearEmptyInputs = () => {
             if (!postcode && !home_number) {
@@ -124,6 +122,22 @@ async function lookupPostcode(options: LookupOptions): Promise<Address> | undefi
 
         const listen = () => {
 
+            postcodeInput = Selector(options.bind.postcode) as HTMLInputElement;
+            home_numberInput = Selector(options.bind.home_number) as HTMLInputElement;
+
+            delete options.bind.postcode;
+            delete options.bind.home_number;
+            
+            keys = Object.keys(options.bind);
+            if (keys.length == 0) {
+                throw new Error('At least postcode, home_number and one other field must be bound');
+            }
+
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                bound[key] = Selector(bound[key]) as HTMLInputElement;
+            }
+    
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
                 const input = bound[key];

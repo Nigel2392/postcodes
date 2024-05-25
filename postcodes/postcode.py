@@ -127,7 +127,10 @@ def address_check(postcode: str, number: int, api_key = None) -> Address:
         raise AddressValidationError(_(f"Endpoint returned an invalid response: {response.text}"))
     
     if response.status_code != 200:
-        raise AddressValidationError(_("Invalid Response status %(status)s") % {"status": response.status_code}, getattr(data, ERROR_ATTRIBUTE, _("Endpoint returned an error response.")))
+        raise AddressValidationError(
+            _("Invalid Response status %(status)s / %(url)s") % {"status": response.status_code, "url": url},
+            getattr(data, ERROR_ATTRIBUTE, _("Endpoint returned an error response."))
+        )
 
     # Create a new address instance
     address = Address(

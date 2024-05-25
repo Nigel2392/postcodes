@@ -57,7 +57,7 @@ def address_check_api(request):
         return JsonResponse({
             "success": False,
             "error": _("An error occurred while checking the address.")
-        })
+        }, status=200)
     
 
     # Return the address information

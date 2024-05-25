@@ -97,6 +97,7 @@ Then we can define our template
                    // These are required for the lookup
                     postcode: document.querySelector('#id_postcode'),
                     home_number: document.querySelector('#id_home_number'),
+
                     // Custom fields returned by the API
                     straat: document.querySelector("#id_street"),
                     woonplaats: document.querySelector("#id_city"),
@@ -104,10 +105,13 @@ Then we can define our template
                     provincie: document.querySelector("#id_province"),
                     bouwjaar: document.querySelector("#id_build_year"),
                     vloeroppervlakte: document.querySelector("#id_floor_area"),
-                    latitude: document.querySelector("#id_geo_x"),
-                    longitude: document.querySelector("#id_geo_y"),
-                    rd_x: document.querySelector("#id_rd_x"),
-                    rd_y: document.querySelector("#id_rd_y"),
+
+                    // Or optionally as a queryselector
+                    // If everything is a string - it is safe to omit the DOMContentLoaded eventListener
+                    latitude: "#id_geo_x",
+                    longitude: "#id_geo_y",
+                    rd_x: "#id_rd_x",
+                    rd_y: "#id_rd_y",
                },
                success: function(addr) {
                    console.log(addr);

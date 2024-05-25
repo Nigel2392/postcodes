@@ -120,12 +120,20 @@ function newURL(url: string) {
         }
         url = `${window.location.origin}/${url}`;
     }
-    return new URL(url);
+    return new URL(url)
+}
+
+function Selector(init: any): HTMLElement {
+    if (typeof init === 'string') {
+        return document.querySelector(init) as HTMLElement
+    }
+    return init as HTMLElement
 }
 
 export {
     isZero,
     newURL,
     validateInput,
+    Selector,
     fetchAPI,
 };
