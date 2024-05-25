@@ -3,6 +3,8 @@ postcodes
 
 **A dutch postcode lookup app for Django.**
 
+But it does support your own country with some extra effort.
+
 By default we use the free (but rate limited) API from [postcode.go-dev.nl](https://postcode.go-dev.nl/).
 
 You must create an account and get an API key to use this package (in the default configuration).
