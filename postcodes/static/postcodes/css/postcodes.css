@@ -1,0 +1,15 @@
+.postcodes-input {
+    outline: none;
+}
+.postcodes-input.is-invalid {
+    border-color: #dc3545;
+}
+.postcodes-input.is-invalid-pattern {
+    border-color: #c4891c;
+}
+.postcodes-input.is-invalid-min {
+    border-color: #c6c910;
+}
+.postcodes-input.is-invalid-max {
+    border-color: #c6c910;
+}
