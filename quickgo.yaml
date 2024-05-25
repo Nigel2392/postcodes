@@ -1,0 +1,11 @@
+name: postcodes
+context:
+    versionMapping:
+      README.md: "\\@v((?:(\\d+)\\.)?(?:(\\d+)\\.)?(\\*|\\d+))"
+
+delimLeft: ${{
+delimRight: '}}'
+exclude:
+    - '*node_modules*'
+    - '*dist*'
+    - ./.git
