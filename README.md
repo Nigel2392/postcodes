@@ -5,7 +5,7 @@ postcodes
 
 By default we use the free (but rate limited) API from [postcode.go-dev.nl](https://postcode.go-dev.nl/).
 
-You must create an account and get an API key to use this package.
+You must create an account and get an API key to use this package (in the default configuration).
 
 This API key must be set in the [settings](#settings).
 
