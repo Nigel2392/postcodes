@@ -24,6 +24,6 @@ if ($Tag) {
 }
 
 if ($PyPi) {
-    python setup.py sdist
-    twine upload "dist/django_postcodes-${TagName}.tar.gz"
+    py setup.py sdist
+    py -m twine upload "dist/django_postcodes-${TagName}.tar.gz"
 }
