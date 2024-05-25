@@ -52,6 +52,9 @@ class Address(object):
         self.home_number = home_number
         self.data = data or {}
 
+    def __reduce__(self):
+        return self.__class__, (self.postcode, self.home_number, self.data)
+    
     def __getattribute__(self, name):
         if name == "postcode":
             return object.__getattribute__(self, "postcode")
