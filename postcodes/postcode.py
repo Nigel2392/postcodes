@@ -40,7 +40,7 @@ _default_headers = {
 logger = logging.getLogger(__name__)
 
 
-class Address(object):
+class Address:
     """
         A simple address object to store address information.
     """
@@ -52,22 +52,19 @@ class Address(object):
         self.home_number = home_number
         self.data = data or {}
 
-    def __reduce__(self):
-        return self.__class__, (self.postcode, self.home_number, self.data)
+    def dict(self):
+        return {
+            "postcode": self.postcode,
+            "home_number": self.home_number,
+            "data": self.data,
+        }
     
-    def __getattribute__(self, name):
-        if name == "postcode":
-            return object.__getattribute__(self, "postcode")
+    def __getattr__(self, name):
+        if name in ["postcode", "home_number", "data", "dict"]:
+            return super().__getattribute__(name)
         
-        if name == "home_number":
-            return object.__getattribute__(self, "home_number")
-        
-        if name == "data":
-            return object.__getattribute__(self, "data")
-        
-        data = object.__getattribute__(self, "data")
-        if name in data:
-            return data[name]
+        if name in self:
+            return self[name]
         
         raise AttributeError(f"Attribute {name} not found in address data.")
     
@@ -110,7 +107,7 @@ def address_check(postcode: str, number: int, api_key = None) -> Address:
     cache_key = make_cache_key(postcode, number)
     address = cache.get(cache_key, default=None)
     if address:
-        return address
+        return Address(**address)
 
     headers = _default_headers.copy()
     if api_key:
@@ -140,6 +137,6 @@ def address_check(postcode: str, number: int, api_key = None) -> Address:
     )
 
     # Cache the address for a week.
-    cache.set(cache_key, address, timeout=ADDRESS_CACHE_TIMEOUT)
+    cache.set(cache_key, address.dict(), timeout=ADDRESS_CACHE_TIMEOUT)
 
     return address    

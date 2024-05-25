@@ -1,7 +1,7 @@
 name: postcodes
 context:
     versionMapping:
-      README.md: "\\@v((?:(\\d+)\\.)?(?:(\\d+)\\.)?(\\*|\\d+))"
+      setup.cfg: "((?:(\\d+)\\.)?(?:(\\d+)\\.)?(\\*|\\d+))"
 
 delimLeft: ${{
 delimRight: '}}'
