@@ -61,6 +61,9 @@ Then we can define our template
 {% extends 'base.html' %}
 
 {% block content %}
+   <link rel="stylesheet" href="{% static 'postcodes/css/postcodes.css' %}">
+   <script src="{% static 'postcodes/js/postcodes.js' %}" data-api-url="{% url "postcodes:api" %}"></script>
+
    <form method="post">
        {% csrf_token %}
        {{ form.as_p }}
