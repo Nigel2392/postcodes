@@ -17,10 +17,10 @@ if ($TagName -ne "0.0.0") {
 $gitTagName = "v$TagName"
 
 if ($Tag) {
-    quickgo exec version v=$TagName
-    quickgo exec git tag=$gitTagName m=$CommitMessage
+    quickgo -v exec version v=$TagName
+    quickgo -v exec git tag=$gitTagName m=$CommitMessage
 } else {
-    quickgo exec git m=$CommitMessage
+    quickgo -v exec git m=$CommitMessage
 }
 
 if ($PyPi) {
