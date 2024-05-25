@@ -7,7 +7,7 @@ By default we use the free (but rate limited) API from [postcode.go-dev.nl](http
 
 You must create an account and get an API key to use this package.
 
-This API key must be set in the [settings](#addr_validator_api_key).
+This API key must be set in the [settings](#settings).
 
 Quick start
 -----------
